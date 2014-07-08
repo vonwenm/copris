@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>CHANGES of Copris</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="CHANGES of Copris"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2014-07-06 00:23:59 JST"/>
+<meta name="author" content="&lt;a href='http://bach.istc.kobe-u.ac.jp/tamura.html'&gt;Naoyuki Tamura&lt;/a&gt;"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" type="text/css" href="/include/org-common.css">
+<link rel="stylesheet" type="text/css" href="/include/org-toc-right.css">
+<script type="text/javascript" src="/include/org-info.js"></script>
+<script type="text/javascript" >
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#ffffcc");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">CHANGES of Copris</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Overview</a></li>
+<li><a href="#sec-2">Version 2.2.5</a></li>
+<li><a href="#sec-3">Version 2.2.4</a></li>
+<li><a href="#sec-4">Version 2.2.3</a></li>
+<li><a href="#sec-5">Version 2.2.2</a></li>
+<li><a href="#sec-6">Version 2.2.1</a></li>
+<li><a href="#sec-7">Version 2.2.0</a></li>
+<li><a href="#sec-8">Version 2.1.0</a></li>
+<li><a href="#sec-9">Version 2.0.0</a></li>
+<li><a href="#sec-10">Version 1.0.3</a></li>
+<li><a href="#sec-11">Version 1.0.2</a></li>
+<li><a href="#sec-12">Version 1.0.1</a></li>
+<li><a href="#sec-13">Version 1.0.0</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Overview</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>  This document describes the major changes of
+  <a href="http://bach.istc.kobe-u.ac.jp/copris/">Copris</a> (Constraint Programming in Scala).
+</p></div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Version 2.2.5 <span class="timestamp-wrapper"> <span class="timestamp">2014-07-06 Sun</span></span></h2>
+<div class="outline-text-2" id="text-2">
+
+<ul>
+<li>Implementation of PB encodings
+</li>
+<li>Bug fix of "Iff" in JSR331 translation
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Version 2.2.4 <span class="timestamp-wrapper"> <span class="timestamp">2013-12-01 Sun</span></span></h2>
+<div class="outline-text-2" id="text-3">
+
+<ul>
+<li>"loader.SugarLoader" and "loader.XCSPLoader" are added.
+</li>
+<li>Format option is added to "dump" command.
+<pre class="example">
+dump(fileName, "csp") // outputs CSP file
+dump(fileName, "cnf") // outputs CNF file
+</pre>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Version 2.2.3 <span class="timestamp-wrapper"> <span class="timestamp">2013-11-10 Sun</span></span></h2>
+<div class="outline-text-2" id="text-4">
+
+<ul>
+<li>"jp.kobe_u.copris.jsr331" package is added
+<ul>
+<li><a href="http://openrules.com/jsr331/">JSR-331</a> solver can be used by the following method call in Copris DSL.
+<pre class="example">
+use(new jsr331.Solver(csp))
+</pre>
+
+</li>
+<li>Note that the translation from Copris CSP to JSR-331 CSP is not optimized.
+</li>
+<li>You need to put JSR-331 implemetation jar files
+      (e.g. jsr331.choco.jar and choco-solver-2.1.5-20120603-with-sources.jar)
+      in lib/jsr331 directory.
+      See <a href="http://openrules.com/jsr331/downloads.htm">http://openrules.com/jsr331/downloads.htm</a>.
+</li>
+</ul>
+
+</li>
+<li>Expr#variables and Expr#bools methods are added
+</li>
+<li>Undeclared variables and bools are checked in "add" method.
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Version 2.2.2 <span class="timestamp-wrapper"> <span class="timestamp">2013-10-13 Sun</span></span></h2>
+<div class="outline-text-2" id="text-5">
+
+<ul>
+<li>Copris version 2.2.2 uses Sugar version 2.1.2 and Sat4j version 2.3.5.
+</li>
+<li>"jp.kobe_u.copris.smt" package is added
+<ul>
+<li>SMT solver <a href="http://z3.codeplex.com">Z3</a> can be used by the following method call in Copris DSL.
+<pre class="example">
+use(new smt.Solver(csp, new smt.SmtSolver("/usr/local/bin/z3"))
+</pre>
+
+</li>
+<li>Note that the translation from Copris CSP to SMT input file is not optimized.
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">Version 2.2.1</h2>
+<div class="outline-text-2" id="text-6">
+
+<ul>
+<li>Method addition: x.! returns Le(x,0)
+</li>
+<li>Method addition: x.$ returns If(x,1,0)
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7">Version 2.2.0 <span class="timestamp-wrapper"> <span class="timestamp">2013-09-01 Sun</span></span></h2>
+<div class="outline-text-2" id="text-7">
+
+<ul>
+<li>Method renaming: <code>!==</code> &ndash;&gt; <code>=/=</code>
+<pre class="example">
+add('x =/= 'y)
+</pre>
+
+</li>
+<li>Method addition: x.? returns Ge(x,1)
+<pre class="example">
+boolInt('x); boolInt('y)
+add('x.? &amp;&amp; 'y.?)
+</pre>
+
+</li>
+<li>Implicit conversion from Symbol to Constraint is removed.
+</li>
+<li>Object Sum is added.  Sum(x1,&hellip;,xn) is equivalent to Add(x1,&hellip;,xn)
+</li>
+<li>Method renaming: sugar.Solver#addDelta &ndash;&gt; encodeDelta
+</li>
+<li>Factory methods of constructing a specified size Vec and Matrix are added.
+<pre class="example">
+val vec = Vec('x, 10)
+val matrix = Matrix('x, 10, 10)
+</pre>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8">Version 2.1.0 <span class="timestamp-wrapper"> <span class="timestamp">2013-08-25 Sun</span></span></h2>
+<div class="outline-text-2" id="text-8">
+
+<ul>
+<li>Copris version 2.1.0 uses Sugar version 2.1.0 and Sat4j version 2.3.5.
+</li>
+<li>'solutions' method is added to get an iterator of all solutions.
+</li>
+<li>'boolInt' method is added to declare 0-1 integer variables.
+</li>
+<li>Implicit conversion from Symbol to Constraint is added in Copris DSL.
+<pre class="example">
+boolInt('x)
+boolInt('y)
+add('x || 'y)
+add('x + 'y === 1)
+</pre>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9">Version 2.0.0 <span class="timestamp-wrapper"> <span class="timestamp">2013-02-15 Fri</span></span></h2>
+<div class="outline-text-2" id="text-9">
+
+<ul>
+<li>Using Sugar version 2.0.0 and Sat4j version 2.3.3
+</li>
+<li>Jar files of Sugar and Sat4j are included to Copris package
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-10" class="outline-2">
+<h2 id="sec-10">Version 1.0.3 <span class="timestamp-wrapper"> <span class="timestamp">2012-06-08 Fri</span></span></h2>
+<div class="outline-text-2" id="text-10">
+
+<ul>
+<li>Names of temporary variables are changed
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-11" class="outline-2">
+<h2 id="sec-11">Version 1.0.2 <span class="timestamp-wrapper"> <span class="timestamp">2012-06-08 Fri</span></span></h2>
+<div class="outline-text-2" id="text-11">
+
+<ul>
+<li>Performance improvement for adding variables and constraints
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-12" class="outline-2">
+<h2 id="sec-12">Version 1.0.1 <span class="timestamp-wrapper"> <span class="timestamp">2011-09-11 Sun</span></span></h2>
+<div class="outline-text-2" id="text-12">
+
+<ul>
+<li><code>value</code> and <code>values</code> methods of solvers are now deprecated.
+    Use <code>apply</code> methods of <code>Solution</code> class instead.
+<pre class="example">
+if (find)
+  println(solution(x))   // instead of println(value(x))
+</pre>
+
+</li>
+<li>Dot product operator of <code>Vec</code> is changed from <code>*+</code> to <code>:*</code>.
+</li>
+<li>value method is defined in <code>Term</code> and <code>Constraint</code> classes.
+<pre class="example">
+if (find)
+  println((x + 1).value(solution))
+</pre>
+
+</li>
+<li>Anonymous variables can be created by <code>Var()</code> and <code>Bool()</code>.
+<ul>
+<li>Names like <code>_1</code>, <code>_2</code>, etc. are used for anonymous variables.
+</li>
+</ul>
+
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-13" class="outline-2">
+<h2 id="sec-13">Version 1.0.0 <span class="timestamp-wrapper"> <span class="timestamp">2011-08-28 Sun</span></span></h2>
+<div class="outline-text-2" id="text-13">
+
+<ul>
+<li>Release of the first version.
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2014-07-06 00:23:59 JST</p>
+<p class="author">Author: &lt;a href='http://bach.istc.kobe-u.ac.jp/tamura.html'&gt;Naoyuki Tamura&lt;/a&gt;</p>
+<p class="creator">Org version 7.8.02 with Emacs version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

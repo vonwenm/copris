@@ -1,0 +1,83 @@
+#+TITLE: CHANGES of Copris
+#+AUTHOR: <a href='http://bach.istc.kobe-u.ac.jp/tamura.html'>Naoyuki Tamura</a>
+#+EMAIL: 
+#+STARTUP: overview hidestars nologdone
+#+LANGUAGE: en
+#+OPTIONS: toc:t H:3 num:nil author:t creator:t todo:nil pri:nil tags:nil LaTeX:t ^:nil @:t
+#+STYLE: <link rel="stylesheet" type="text/css" href="/include/org-common.css">
+#+STYLE: <link rel="stylesheet" type="text/css" href="/include/org-toc-right.css">
+#+INFOJS_OPT: view:showall toc:t tdepth:2 ltoc:nil mouse:#ffffcc path:/include/org-info.js
+#+MATHJAX: align:"left" mathml:nil path:"/include/mathjax/MathJax.js"
+# #+INCLUDE: menu.txt
+* Overview
+  This document describes the major changes of
+  [[http://bach.istc.kobe-u.ac.jp/copris/][Copris]] (Constraint Programming in Scala).
+* Version 2.2.5 [2014-07-06 Sun]
+  - Implementation of PB encodings
+  - Bug fix of "Iff" in JSR331 translation
+* Version 2.2.4 [2013-12-01 Sun]
+  - "loader.SugarLoader" and "loader.XCSPLoader" are added.
+  - Format option is added to "dump" command.
+    : dump(fileName, "csp") // outputs CSP file
+    : dump(fileName, "cnf") // outputs CNF file
+* Version 2.2.3 [2013-11-10 Sun]
+  - "jp.kobe_u.copris.jsr331" package is added
+    + [[http://openrules.com/jsr331/][JSR-331]] solver can be used by the following method call in Copris DSL.
+      : use(new jsr331.Solver(csp))
+    + Note that the translation from Copris CSP to JSR-331 CSP is not optimized.
+    + You need to put JSR-331 implemetation jar files
+      (e.g. jsr331.choco.jar and choco-solver-2.1.5-20120603-with-sources.jar)
+      in lib/jsr331 directory.
+      See http://openrules.com/jsr331/downloads.htm.
+  - Expr#variables and Expr#bools methods are added
+  - Undeclared variables and bools are checked in "add" method.
+* Version 2.2.2 [2013-10-13 Sun]
+  - Copris version 2.2.2 uses Sugar version 2.1.2 and Sat4j version 2.3.5.
+  - "jp.kobe_u.copris.smt" package is added
+    + SMT solver [[http://z3.codeplex.com][Z3]] can be used by the following method call in Copris DSL.
+      : use(new smt.Solver(csp, new smt.SmtSolver("/usr/local/bin/z3"))
+    + Note that the translation from Copris CSP to SMT input file is not optimized.
+* Version 2.2.1
+  - Method addition: x.! returns Le(x,0)
+  - Method addition: x.$ returns If(x,1,0)
+* Version 2.2.0 [2013-09-01 Sun]
+  - Method renaming: ~!==~ --> ~=/=~
+    : add('x =/= 'y)
+  - Method addition: x.? returns Ge(x,1)
+    : boolInt('x); boolInt('y)
+    : add('x.? && 'y.?)
+  - Implicit conversion from Symbol to Constraint is removed.
+  - Object Sum is added.  Sum(x1,...,xn) is equivalent to Add(x1,...,xn)
+  - Method renaming: sugar.Solver#addDelta --> encodeDelta
+  - Factory methods of constructing a specified size Vec and Matrix are added.
+    : val vec = Vec('x, 10)
+    : val matrix = Matrix('x, 10, 10)
+* Version 2.1.0 [2013-08-25 Sun]
+  - Copris version 2.1.0 uses Sugar version 2.1.0 and Sat4j version 2.3.5.
+  - 'solutions' method is added to get an iterator of all solutions.
+  - 'boolInt' method is added to declare 0-1 integer variables.
+  - Implicit conversion from Symbol to Constraint is added in Copris DSL.
+    : boolInt('x)
+    : boolInt('y)
+    : add('x || 'y)
+    : add('x + 'y === 1)
+* Version 2.0.0 [2013-02-15 Fri]
+  - Using Sugar version 2.0.0 and Sat4j version 2.3.3
+  - Jar files of Sugar and Sat4j are included to Copris package
+* Version 1.0.3 [2012-06-08 Fri]
+  - Names of temporary variables are changed
+* Version 1.0.2 [2012-06-08 Fri]
+  - Performance improvement for adding variables and constraints
+* Version 1.0.1 [2011-09-11 Sun]
+  - ~value~ and ~values~ methods of solvers are now deprecated.
+    Use ~apply~ methods of ~Solution~ class instead.
+    : if (find)
+    :   println(solution(x))   // instead of println(value(x))
+  - Dot product operator of ~Vec~ is changed from ~*+~ to ~:*~.
+  - value method is defined in ~Term~ and ~Constraint~ classes.
+    : if (find)
+    :   println((x + 1).value(solution))
+  - Anonymous variables can be created by ~Var()~ and ~Bool()~.
+    - Names like ~_1~, ~_2~, etc. are used for anonymous variables.
+* Version 1.0.0 [2011-08-28 Sun]
+  - Release of the first version.
